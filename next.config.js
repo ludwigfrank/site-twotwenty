@@ -1,6 +1,5 @@
 const withPlugins = require('next-compose-plugins')
 const path = require('path')
-const optimizedImages = require('next-optimized-images')
 
 const nextConfig = {
   webpack(config, options) {
@@ -10,23 +9,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withPlugins(
-  [
-    [
-      optimizedImages,
-      {
-        handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
-        imagesName: '[name]-[hash].[ext]',
-        optimizeImagesInDev: true,
-        webp: {
-          preset: 'default',
-          quality: 90
-        },
-        optipng: {
-          optimizationLevel: 3
-        }
-      }
-    ]
-  ],
-  nextConfig
-)
+module.exports = withPlugins([], nextConfig)

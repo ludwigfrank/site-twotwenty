@@ -1,10 +1,12 @@
 import { css } from 'styled-components'
+import { media } from '../media'
+import { convertPxToEm } from '../util'
 
-const parseUnit = (number: number): string => `${number / 16}em`
+const parseUnit = convertPxToEm
 
 const fontFamily = {
-  title: 'system-ui',
-  body: 'system-ui'
+  title: "'Sohne Schmal', system-ui",
+  body: "'Sohne Mono', system-ui"
 }
 
 const titleFontWeight = {
@@ -34,8 +36,12 @@ const presetBase = css`
 // Title preset
 const presetTitleBase = css`
   ${presetBase};
+  font-family: ${fontFamily.title};
   font-weight: ${titleFontWeight.medium};
   color: ${props => props.theme.colorTextHighContrast};
+  hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
 `
 
 // Default presets for mobile-first development
@@ -45,8 +51,13 @@ export const typographyTitlePresets = {
     asComponent: 'h1',
     style: css`
       ${presetTitleBase};
-      font-size: ${parseUnit(32)};
-      line-height: ${parseUnit(40)};
+      font-size: ${parseUnit(70)};
+      line-height: ${parseUnit(15)};
+
+      ${media.queryPhone`
+        font-size: ${parseUnit(160)};
+        line-height: ${parseUnit(15)};
+      `}
     `
   },
 
@@ -54,8 +65,14 @@ export const typographyTitlePresets = {
     asComponent: 'h1',
     style: css`
       ${presetTitleBase};
-      font-size: ${parseUnit(24)};
-      line-height: ${parseUnit(32)};
+      font-size: ${parseUnit(58)};
+      line-height: ${parseUnit(15)};
+      text-transform: uppercase;
+
+      ${media.queryPhone`
+        font-size: ${parseUnit(80)};
+        line-height: ${parseUnit(15)};
+      `}
     `
   },
 
@@ -65,6 +82,11 @@ export const typographyTitlePresets = {
       ${presetTitleBase};
       font-size: ${parseUnit(20)};
       line-height: ${parseUnit(28)};
+
+      ${media.queryPhone`
+        font-size: ${parseUnit(40)};
+        line-height: ${parseUnit(15)};
+      `}
     `
   },
 
@@ -117,6 +139,7 @@ export const typographyBodyPresets = {
       font-size: ${parseUnit(14)};
       line-height: ${parseUnit(20)};
       letter-spacing: ${parseUnit(0.1)};
+      font-weight: normal;
     `
   },
 
@@ -137,7 +160,7 @@ export const typographyBodyPresets = {
       font-size: ${parseUnit(16)};
       line-height: ${parseUnit(24)};
       letter-spacing: ${parseUnit(0.25)};
-      font-weight: ${bodyFontWeight.medium};
+      font-weight: normal;
     `
   }
 }

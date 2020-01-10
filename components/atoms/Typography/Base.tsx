@@ -6,21 +6,32 @@ import styled, {
   DefaultTheme
 } from 'styled-components'
 
+import { space, SpaceProps } from 'styled-system'
+import { ThemeTextColorKeys } from '../../../theme/base/colors'
+
 interface TypographyPreset {
   asComponent: any
   style: FlattenInterpolation<ThemeProps<DefaultTheme>>
 }
 
-interface BaseProps {
+interface BaseProps extends SpaceProps {
   preset: TypographyPreset
+  color?: ThemeTextColorKeys
 }
 
-export const Base: FunctionComponent<BaseProps> = ({ preset, children }) => {
+export const Base: FunctionComponent<BaseProps> = ({
+  preset,
+  children,
+  color = 'colorTextStandard',
+  ...props
+}) => {
   const { style, asComponent } = preset
 
   const Wrapper = styled(asComponent)`
     ${style};
+    ${space};
+    color: ${props => props.theme[color]};
   `
 
-  return <Wrapper> {children} </Wrapper>
+  return <Wrapper {...props}> {children} </Wrapper>
 }
